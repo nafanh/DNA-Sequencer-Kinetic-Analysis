@@ -52,7 +52,7 @@ class Ui_MainWindow(object):
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
-        MainWindow.setWindowTitle(_translate("MainWindow", "Skip Frac vs. Size?"))
+        MainWindow.setWindowTitle(_translate("MainWindow", "Sasdfadsfadfadsfafsd:"))
         self.label.setText(_translate("MainWindow", "Do you want to skip Fractional Area vs. Size"))
         self.pushButton.setText(_translate("MainWindow", "Yes"))
         self.pushButton_2.setText(_translate("MainWindow", "No"))
