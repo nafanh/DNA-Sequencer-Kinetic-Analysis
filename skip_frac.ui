@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1134</width>
-    <height>398</height>
+    <width>623</width>
+    <height>167</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -20,10 +20,16 @@
       <item>
        <widget class="QLabel" name="label">
         <property name="text">
-         <string>Welcome to DNA Sequencer Analysis Software v1.0</string>
+         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:12pt;&quot;&gt;Welcome to DNA Sequencer Analysis Software v1.0. &lt;/span&gt;&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:12pt;&quot;&gt;Please select which task to perform:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+        </property>
+        <property name="textFormat">
+         <enum>Qt::RichText</enum>
         </property>
         <property name="alignment">
          <set>Qt::AlignCenter</set>
+        </property>
+        <property name="wordWrap">
+         <bool>false</bool>
         </property>
        </widget>
       </item>
@@ -31,6 +37,11 @@
        <layout class="QHBoxLayout" name="horizontalLayout">
         <item>
          <widget class="QPushButton" name="pushButton">
+          <property name="font">
+           <font>
+            <pointsize>10</pointsize>
+           </font>
+          </property>
           <property name="text">
            <string>Basic Chromatogram Visualization</string>
           </property>
@@ -38,15 +49,13 @@
         </item>
         <item>
          <widget class="QPushButton" name="pushButton_2">
+          <property name="font">
+           <font>
+            <pointsize>10</pointsize>
+           </font>
+          </property>
           <property name="text">
            <string>Peak Sizing and Quantification</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QPushButton" name="pushButton_3">
-          <property name="text">
-           <string>Quit</string>
           </property>
          </widget>
         </item>
@@ -58,6 +67,7 @@
      <widget class="QLabel" name="label_2">
       <property name="font">
        <font>
+        <pointsize>11</pointsize>
         <italic>true</italic>
        </font>
       </property>
@@ -79,8 +89,8 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1134</width>
-     <height>26</height>
+     <width>623</width>
+     <height>21</height>
     </rect>
    </property>
   </widget>

@@ -172,12 +172,12 @@ class MyWindow(QtWidgets.QMainWindow):
         super(MyWindow,self).__init__()
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
-        self.setWindowTitle('Skip Frac vs. Size')
+        #self.setWindowTitle('Skip Frac vs. Size')
         self.show()
         self.ui.pushButton.clicked.connect(self.on_push_yes)
         # self.ui.hide()
         self.ui.pushButton_2.clicked.connect(self.on_push_no)
-        self.ui.pushButton_3.clicked.connect(closeProgram)
+        #self.ui.pushButton_3.clicked.connect(closeProgram)
 
 
     def on_push_yes(self):
@@ -195,7 +195,7 @@ class RunDesc(QtWidgets.QMainWindow):
         super(RunDesc,self).__init__()
         self.ui2 = Ui_MainWindow2()
         self.ui2.setupUi2(self)
-        self.setWindowTitle('Run Description')
+        #self.setWindowTitle('Run Description')
         self.show()
 
         # self.df_all_peaks = filtered_data(fileName, time_underscore) #Calculates all the peaks in table
@@ -694,7 +694,7 @@ class polymerBounds(QtWidgets.QMainWindow):
 
         self.ui3 = Ui_MainWindow3()
         self.ui3.setupUi3(self)
-        self.setWindowTitle('Polymer Bounds')
+        #self.setWindowTitle('Polymer Bounds')
         self.show()
 
 
@@ -736,7 +736,7 @@ class polymerBounds(QtWidgets.QMainWindow):
         self.ui3.pushButton_4.clicked.connect(self.showFracAreaSizeBefore)
         self.ui3.pushButton_8.clicked.connect(self.goBack)
         self.ui3.pushButton_6.clicked.connect(self.showFracAreaSizeAfter)
-        self.ui3.pushButton_9.clicked.connect(self.goToSkipAlign)
+        self.ui3.pushButton_9.clicked.connect(self.goalignParam)
         self.ui3.pushButton_11.clicked.connect(self.showDeletePolymer)
         self.ui3.pushButton_10.clicked.connect(closeProgram)
         self.ui3.pushButton_12.clicked.connect(self.saveTableAfterConc)
@@ -1140,9 +1140,16 @@ class polymerBounds(QtWidgets.QMainWindow):
         #self.backDesc = RunDesc()
         #polymer_list.append(self.polymer_name)
 
-    def goToSkipAlign(self):
-        self.close()
-        self.skipAlign = skipAlign()
+    def goalignParam(self): #goes to the alignment parameters without asking for skipping alignment parameter popup
+        #self.close()
+        self.aP = alignParam()
+        self.aP.ui5.pushButton_10.setEnabled(True)
+        self.aP.ui5.pushButton_11.setEnabled(True)
+        self.aP.ui5.pushButton_13.setEnabled(True)
+
+    # def goToSkipAlign(self): Method to go to skip alignment
+    #     self.close()
+    #     self.skipAlign = skipAlign()
 
     #     self.ui3.label_5.setText(self.polymer_name)
     #
@@ -1155,27 +1162,27 @@ class polymerBounds(QtWidgets.QMainWindow):
     #     self.ui3.label_5.setText(self.upper_bound)
 
 
-class skipAlign(QtWidgets.QMainWindow):
-    def __init__(self):
-        super().__init__()
-        self.ui4 = Ui_MainWindow6()
-        self.ui4.setupUi(self)
-        self.show()
-
-
-        self.ui4.pushButton.clicked.connect(self.closeProgram)
-        self.ui4.pushButton_2.clicked.connect(self.a_param)
-
-
-    def a_param(self):
-        self.close()
-        self.aP = alignParam()
-        self.aP.ui5.pushButton_10.setEnabled(True)
-        self.aP.ui5.pushButton_11.setEnabled(True)
-        self.aP.ui5.pushButton_13.setEnabled(True)
-
-    def closeProgram(self):
-        sys.exit(app.exec_())
+# class skipAlign(QtWidgets.QMainWindow): Class popup for skip alignment
+#     def __init__(self):
+#         super().__init__()
+#         self.ui4 = Ui_MainWindow6()
+#         self.ui4.setupUi(self)
+#         self.show()
+#
+#
+#         self.ui4.pushButton.clicked.connect(self.closeProgram)
+#         self.ui4.pushButton_2.clicked.connect(self.a_param)
+#
+#
+#     def a_param(self):
+#         self.close()
+#         self.aP = alignParam()
+#         self.aP.ui5.pushButton_10.setEnabled(True)
+#         self.aP.ui5.pushButton_11.setEnabled(True)
+#         self.aP.ui5.pushButton_13.setEnabled(True)
+#
+#     def closeProgram(self):
+#         sys.exit(app.exec_())
 
 
 
@@ -1183,7 +1190,7 @@ class alignParam(QtWidgets.QMainWindow):
     def __init__(self):
         super().__init__()
         self.ui5 = Ui_MainWindow5()
-        self.ui5.setupUi(self)
+        self.ui5.setupUi5(self)
         self.show()
         self.plot_time_underscore = 0
         self.fsaNamesList = []
