@@ -33,13 +33,11 @@ def kintek_export(df):
     return df1
 
 
-
-
-
-
 filepath = "C:\\Users\\nhuan_000\PycharmProjects\dna seq\pthio\\burst_ranges.xlsx"
+
+
 def import_ranges(filepath):
-    #filepath = "C:\\Users\\nhuan_000\PycharmProjects\dna seq\pthio\\burst_ranges.xlsx"
+    # filepath = "C:\\Users\\nhuan_000\PycharmProjects\dna seq\pthio\\burst_ranges.xlsx"
 
     wb = load_workbook(filepath)
     ws = wb.active
@@ -50,10 +48,10 @@ def import_ranges(filepath):
     lower_bounds = []
     upper_bounds = []
 
-    for i in range(1,len(lower)):
+    for i in range(1, len(lower)):
         lower_bounds.append(lower[i].value)
 
-    for i in range(1,len(upper)):
+    for i in range(1, len(upper)):
         upper_bounds.append(upper[i].value)
 
     # print(lower_bounds)
@@ -63,12 +61,14 @@ def import_ranges(filepath):
     #     name = '[' + str(lower_bounds[i]) + ':' + str(upper_bounds[i]) + ']'
     #     new_list.append(name)
 
-    pre_list = list(map(list,zip(lower_bounds,upper_bounds)))
+    pre_list = list(map(list, zip(lower_bounds, upper_bounds)))
     pre_list = str(pre_list)
-    new_list = pre_list.replace('],',']:')
+    new_list = pre_list.replace('],', ']:')
     new_list2 = new_list[1:-1]
-    new_list3 = new_list2.replace(' ','')
+    new_list3 = new_list2.replace(' ', '')
     return str(new_list3)
+
+
 # print(import_ranges(filepath))
 # print(type(import_ranges(filepath)))
 
@@ -85,24 +85,13 @@ def import_sizes(filePath):
     return polymer_list
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 def atoi(text):
     return int(text) if text.isdigit() else text
 
+
 def natural_keys(text):
     return [atoi(c) for c in re.split(r'(\d+)', text)]
+
 
 # if remove_datapt == None:
 #     break
@@ -167,34 +156,32 @@ def natural_keys(text):
 #
 
 
-
-def deletePolymer(n,polymers):
-    #Test set ['Time','27mer','28mer','Total','27mer/Total','28mer/Total']
+def deletePolymer(n, polymers):
+    # Test set ['Time','27mer','28mer','Total','27mer/Total','28mer/Total']
     headers_list = n.columns.values.tolist()
-    #print(headers_list)
-    #print(headers_list) #['Time', '27mer', '28mer', 'Total', '27mer/Total', '28mer/Total']
-    headers_list = headers_list[1:(len(headers_list)//2)+1]
-    #print(headers_list) #['27mer', '28mer', 'Total']
-    #print(headers_list) #Output: ['27mer','28mer','Total']
+    # print(headers_list)
+    # print(headers_list) #['Time', '27mer', '28mer', 'Total', '27mer/Total', '28mer/Total']
+    headers_list = headers_list[1:(len(headers_list) // 2) + 1]
+    # print(headers_list) #['27mer', '28mer', 'Total']
+    # print(headers_list) #Output: ['27mer','28mer','Total']
     for remove_datapt in polymers:
-
         del n[remove_datapt]
         del n[remove_datapt + '/Total']
         headers_list.remove(remove_datapt)
-        #print(headers_list) #['28mer', 'Total']
-        #Output: ['28mer','Total']
-        #headers_list.remove(remove_datapt + '/Total')
+        # print(headers_list) #['28mer', 'Total']
+        # Output: ['28mer','Total']
+        # headers_list.remove(remove_datapt + '/Total')
         n['Total'] = 0
         n['Total'] = n.iloc[:, 1:int(len(n.columns) / 2) + 1].sum(axis=1)
-        #print(n)
+        # print(n)
 
-    #print(headers_list)
-    #print(n)
+    # print(headers_list)
+    # print(n)
     for i in range(len(headers_list) - 1):
-        divide_name = headers_list[i] + '/' + headers_list[-1] #last is always total ok
-        n[divide_name] = n.loc[:, headers_list[i]] / n.loc[:,'Total']
+        divide_name = headers_list[i] + '/' + headers_list[-1]  # last is always total ok
+        n[divide_name] = n.loc[:, headers_list[i]] / n.loc[:, 'Total']
     # Sorts table by time and fill 'NaN' values with '0'
-    #print(n)
+    # print(n)
     n = n.fillna(0)
     return n
 
@@ -209,7 +196,8 @@ def deletePolymer(n,polymers):
 # print(deletePolymer(o,['27mer']))
 # print(deletePolymer(p,['27mer']))
 
-def plot3d(length_dir,fsa_names_sorted,time_underscore,x_min,x_max,y_min,y_max,folder_fsa):
+def plot3d(length_dir, fsa_names_sorted, time_underscore, x_min, x_max, y_min, y_max, folder_fsa):
+    global x_std_max
     fig2 = plt.figure()
     ax2 = plt.axes(projection='3d')
     # Counter for subplot number
@@ -218,7 +206,7 @@ def plot3d(length_dir,fsa_names_sorted,time_underscore,x_min,x_max,y_min,y_max,f
     diff_list = []
     # parses the directory for .fsa files
     for k in range(length_dir):
-        if k == 0:
+        if k == 0: # This gets the standard reference peak, just the first .fsa file in the directory
             # ax = fig.add_subplot(3,3,subplot_num,projection='3d')
             first_dp_split = fsa_names_sorted[k].split('_')
             time = first_dp_split[time_underscore]
@@ -230,13 +218,13 @@ def plot3d(length_dir,fsa_names_sorted,time_underscore,x_min,x_max,y_min,y_max,f
                 # s_trace['DATA1'] = y values
                 s_trace[sc] = standard.annotations['abif_raw'][sc]
             x_values = np.asarray(s_trace['DATA1'])
-            y_std_max = max(s_trace['DATA3'])
-            x_std_max = s_trace['DATA3'].index(y_std_max)
+            y_std_max = max(s_trace['DATA3'])  # Max y-value for the first graph (used as standard)
+            x_std_max = s_trace['DATA3'].index(y_std_max)  # The x-value for the max y-value
             # print(x_values[x_min:x_max+1])
 
-            z_values = x_values[x_min:x_max + 1]
-            x_values_time = [float(time)] * len(z_values)
-            y_values = np.arange(x_min, x_max + 1)
+            z_values = x_values[x_min:x_max + 1]  # Makes 3D plot z-values the x-values of 2D plot
+            x_values_time = [float(time)] * len(z_values)  # np array with as many time values as there are data points
+            y_values = np.arange(x_min, x_max + 1)  # Y-values of 3d plot same as 2d plot
             ##    print(len(x_values))
             ##    print(len(y_values))
             ##    print(len(z_values))
@@ -262,7 +250,7 @@ def plot3d(length_dir,fsa_names_sorted,time_underscore,x_min,x_max,y_min,y_max,f
         for c in channels:
             trace[c] = record.annotations['abif_raw'][c]
         # Xvalues for time pts
-        x_values_non_std = np.asarray(trace['DATA1'])
+        x_values_non_std = np.asarray(trace['DATA1']) # The actual y-values from 2d plot
         # Numpy for y values (xvalues_non_std)
 
         # Get the max value data
@@ -273,12 +261,12 @@ def plot3d(length_dir,fsa_names_sorted,time_underscore,x_min,x_max,y_min,y_max,f
         diff = x_peak - x_std_max
         diff_list.append(diff)
         # y_values_append_values = np.arange(x_max - diff, x_max)
-        # print(diff)
+        #print(diff)
 
         # X_values_non_std are really the y values on a 2d graph
-        y_values_non_std = np.arange(x_min, x_max + 1) - diff
-
-        x_min_diff_first_x = np.where(y_values_non_std == x_min)
+        y_values_non_std = np.arange(x_min, x_max + 1) - diff # Diff removes the amount of data points +/- from the graph
+        # print(y_values_non_std)
+        # x_min_diff_first_x = np.where(y_values_non_std == x_min)
         # print(x_min_diff_first_x)
         # if x_min_diff_first_x[0].size != 0:
         #     x_min_diff_first_x_range = np.arange(x_min_diff_first_x[0])
@@ -289,13 +277,16 @@ def plot3d(length_dir,fsa_names_sorted,time_underscore,x_min,x_max,y_min,y_max,f
         # print(y_values_non_std)
         # x_min_diff_first_x_np = np.arange(x_min_diff_first_x)
         # np.delete(y_values_non_std,x_min_diff_first_x_np)
-        z_values_non_std = x_values_non_std[x_min:x_min + len(y_values_non_std)]
-        x_values_time_non_std = [float(time_peak)] * len(y_values_non_std)
+        z_values_non_std = x_values_non_std[x_min:x_min + len(y_values_non_std)] # Data points corrected for shift.
+        # Adds zero values
+        x_values_time_non_std = [float(time_peak)] * len(y_values_non_std) # Makes list of time points with len =
+        # data point length
 
-        diff_range_list = np.arange(diff)
+        diff_range_list = np.arange(diff) # makes np array with length of difference, if negative then empty array
 
         # Removes the values less than x_min for positive differences
         y_values_non_std = np.delete(y_values_non_std, diff_range_list)
+        #print(y_values_non_std)
         z_values_non_std = np.delete(z_values_non_std, diff_range_list)
         x_values_time_non_std = np.delete(x_values_time_non_std, diff_range_list)
 
@@ -307,7 +298,9 @@ def plot3d(length_dir,fsa_names_sorted,time_underscore,x_min,x_max,y_min,y_max,f
         # Positive differences, we will
         if diff > 0:
             y_values_append_values = np.arange(x_max - diff, x_max)
-            z_values_append_values = np.array(zero_list)
+            # z_values_append_values = np.array(zero_list)
+            z_values_append_values = np.array(x_values_non_std[x_max:x_max+diff]) # Appends RFU values greater than
+            # x_max after shifting
             x_values_time_append_values = np.array([float(time_peak)] * diff)
 
             y_values_non_std = np.append(y_values_non_std, y_values_append_values)
@@ -316,24 +309,30 @@ def plot3d(length_dir,fsa_names_sorted,time_underscore,x_min,x_max,y_min,y_max,f
             # print(len(y_values_non_std))
 
         else:
-            y_values_append_values = np.arange(x_min, x_min - diff + 1)
+            y_values_append_values = np.arange(x_min, x_min - diff + 1) # Subtracting by a negative number is addition
             x_range = x_max - x_min
-            y_values_delete_values_end = [x for x in range(x_range + 1, x_range - diff + 2)]
+            y_values_delete_values_end = [x for x in range(x_range + 1, x_range - diff + 2)] # from [end: end+diff]
+            # print(y_values_delete_values_end)
+            # appended to y_values
             y_values_delete_values_begin = [x for x in range(0, abs(diff) + 1)]
             # y_values_delete_values = np.arange(x_max,x_max - diff)
+            z_values_append_values = np.array(zero_list) # Zero values for appending to beginning of z-values (RFU)
+            x_values_time_append_values = np.array([float(time_peak)] * diff) # Time values to append)
+            # print(x_values_time_append_values)
 
-            z_values_append_values = np.array(zero_list)
-            x_values_time_append_values = np.array([float(time_peak)] * diff)
-
-            y_values_non_std = np.insert(y_values_non_std, 0, y_values_append_values)
+            y_values_non_std = np.insert(y_values_non_std, 0, y_values_append_values) # insert data point values at
+            # beginning of numpy array
             y_values_non_std = np.delete(y_values_non_std, y_values_delete_values_end)
             z_values_non_std = x_values_non_std[x_min:x_min + len(y_values_non_std)]
             x_values_time_non_std = [float(time_peak)] * len(y_values_non_std)
+
+
             # print(b)
             # print(len(y_values_non_std))
-            z_values_non_std = np.append(z_values_non_std, z_values_append_values)
+            z_values_non_std = np.append(z_values_non_std, z_values_append_values) # Add zero values to beginning (
+            # negative data point values)
             x_values_time_non_std = np.append(x_values_time_non_std, x_values_time_append_values)
-            #x_values_time_non_std = math.log(x_values_time_non_std)*100
+            # x_values_time_non_std = math.log(x_values_time_non_std)*100
 
         # x_values_time_non_std = np.log(x_values_time_non_std)
         # print(x_values_time_non_std)
@@ -368,11 +367,13 @@ def plot3d(length_dir,fsa_names_sorted,time_underscore,x_min,x_max,y_min,y_max,f
 
     plt.show()
     plt.close()
-def divisors(n):   #Gives output of a list of lists [[1,4],[2,2]]
+
+
+def divisors(n):  # Gives output of a list of lists [[1,4],[2,2]]
     factors = []
-    for i in range(1, int(n**0.5)+1):
-        if n%i == 0:
-            factors.append([i,int(n/i)])
+    for i in range(1, int(n ** 0.5) + 1):
+        if n % i == 0:
+            factors.append([i, int(n / i)])
 
     rev_factors = []
     for i in range(len(factors)):
@@ -384,15 +385,19 @@ def divisors(n):   #Gives output of a list of lists [[1,4],[2,2]]
     dim_table.index += 1
     return dim_table
 
+
 def getFSANames(dir_name):
     fsa_names = [x for x in os.listdir(dir_name) if x.endswith('.fsa')]
     ex_name = fsa_names[0]
     return ex_name
 
+
 def getFSANamesListNotNum(dir_name):
     fsa_names = [x for x in os.listdir(dir_name) if x.endswith('.fsa')]
     return fsa_names
-def getFSANamesList(dir_name,time_underscore):
+
+
+def getFSANamesList(dir_name, time_underscore):
     fsa_names = [x for x in os.listdir(dir_name) if x.endswith('.fsa')]
     time_list = []
     # Adjusts to make the zero time point the first .fsa file in the directory
@@ -413,10 +418,11 @@ def getFSANamesList(dir_name,time_underscore):
             if ext_name_split[time_underscore] == str(time):
                 fsa_names_sorted.append(ext_name)
             continue
-    #print(fsa_names_sorted)
+    # print(fsa_names_sorted)
     return fsa_names_sorted
 
-def timePts(fsa_names,time_underscore):
+
+def timePts(fsa_names, time_underscore):
     time_list = []
     for i in range(len(fsa_names)):
         name_list = fsa_names[i].split('_')
@@ -431,10 +437,8 @@ def timePts(fsa_names,time_underscore):
     return time_list
 
 
-
-
-#Plots 2d alignment
-def plot(dir_name,time_underscore,x_min,x_max,y_min,y_max,rows,cols):
+# Plots 2d alignment
+def plot(dir_name, time_underscore, x_min, x_max, y_min, y_max, rows, cols):
     os.chdir(dir_name)
     fsa_names = [x for x in os.listdir(dir_name) if x.endswith('.fsa')]
     length_dir = len(fsa_names)
@@ -463,7 +467,6 @@ def plot(dir_name,time_underscore,x_min,x_max,y_min,y_max,rows,cols):
     # Creates figure, axis objects for subplot
     fig, ax = plt.subplots(rows, cols, sharex='all', sharey='all')
     axes_list = [item for sublist in ax for item in sublist]
-
 
     # Initialize variables for row and column
     i = 0
@@ -566,9 +569,9 @@ def plot(dir_name,time_underscore,x_min,x_max,y_min,y_max,rows,cols):
             j += 1
         # Increments column for subplot
 
-    subplot_diff = (rows*cols) - length_dir
+    subplot_diff = (rows * cols) - length_dir
     if subplot_diff > 0:
-        for i in range(length_dir,(rows*cols)):
+        for i in range(length_dir, (rows * cols)):
             axes_list[i].remove()
 
     #    plt.plot(array,trace['DATA1'],color='black')
@@ -580,7 +583,8 @@ def plot(dir_name,time_underscore,x_min,x_max,y_min,y_max,rows,cols):
     plt.show()
     plt.close()
 
-def plot2dScaled(dir_name,time_underscore,x_min,x_max,y_min,y_max,rows,cols,zip_dict,pre_fASB_test):
+
+def plot2dScaled(dir_name, time_underscore, x_min, x_max, y_min, y_max, rows, cols, zip_dict, pre_fASB_test):
     os.chdir(dir_name)
     fsa_names = [x for x in os.listdir(dir_name) if x.endswith('.fsa')]
     length_dir = len(fsa_names)
@@ -609,7 +613,6 @@ def plot2dScaled(dir_name,time_underscore,x_min,x_max,y_min,y_max,rows,cols,zip_
     # Creates figure, axis objects for subplot
     fig, ax = plt.subplots(rows, cols, sharex='all', sharey='all')
     axes_list = [item for sublist in ax for item in sublist]
-
 
     # Initialize variables for row and column
     i = 0
@@ -647,13 +650,13 @@ def plot2dScaled(dir_name,time_underscore,x_min,x_max,y_min,y_max,rows,cols,zip_
             # print(factor1)
             # print(type(s_trace['DATA1']))
             if rows == 1 or cols == 1:
-                ax[count_1x].plot(np.array(s_trace['DATA1'])*factor1, color='black')
+                ax[count_1x].plot(np.array(s_trace['DATA1']) * factor1, color='black')
                 ax[count_1x].set_title('Time: ' + time, loc='right', fontsize=8)
                 ax[count_1x].set_xlim(x_min, x_max)
                 ax[count_1x].set_ylim(y_min, y_max)
                 count_1x += 1
             else:
-                ax[0, 0].plot(np.array(s_trace['DATA1'])*factor1, color='black')
+                ax[0, 0].plot(np.array(s_trace['DATA1']) * factor1, color='black')
                 ax[0, 0].set_title('Time: ' + time, loc='right', fontsize=8)
                 ax[0, 0].set_xlim(x_min, x_max)
                 ax[0, 0].set_ylim(y_min, y_max)
@@ -691,7 +694,7 @@ def plot2dScaled(dir_name,time_underscore,x_min,x_max,y_min,y_max,rows,cols,zip_
         size_with_xmax_total_2 = size_with_xmax_2 + '/' + 'Total'
         frac_row_2 = pre_fASB_test.iloc[k, :]
         frac2 = frac_row_2.loc[size_with_xmax_total_2]
-        #print(frac2)
+        # print(frac2)
         factor2 = frac2 / y_peak_data1
         # print(size_with_xmax_total_2)
         # print(y_peak_data1)
@@ -715,20 +718,20 @@ def plot2dScaled(dir_name,time_underscore,x_min,x_max,y_min,y_max,rows,cols,zip_
         ##            if i == 0 and j == 0:
         ##                continue
         if rows == 1:
-            ax[count_1x].plot(array, np.array(trace['DATA1']) *factor2, color='black')
+            ax[count_1x].plot(array, np.array(trace['DATA1']) * factor2, color='black')
             ax[count_1x].set_title('Time: ' + time_peak, loc='right', fontsize=8)
             ax[count_1x].set_xlim(x_min, x_max)
             ax[count_1x].set_ylim(y_min, y_max)
             count_1x += 1
         elif cols == 1:
-            ax[count_1x].plot(array, np.array(trace['DATA1']) *factor2, color='black')
+            ax[count_1x].plot(array, np.array(trace['DATA1']) * factor2, color='black')
             ax[count_1x].set_title('Time: ' + time_peak, loc='right', fontsize=8)
             ax[count_1x].set_xlim(x_min, x_max)
             ax[count_1x].set_ylim(y_min, y_max)
             count_1x += 1
         # Displays the peaks
         else:
-            ax[i, j].plot(array, np.array(trace['DATA1']) *factor2, color='black')
+            ax[i, j].plot(array, np.array(trace['DATA1']) * factor2, color='black')
             ax[i, j].set_title('Time: ' + time_peak, loc='right', fontsize=8)
             ax[i, j].set_xlim(x_min, x_max)
             ax[i, j].set_ylim(y_min, y_max)
@@ -748,7 +751,10 @@ def plot2dScaled(dir_name,time_underscore,x_min,x_max,y_min,y_max,rows,cols,zip_
 
     plt.show()
     plt.close()
-def plot3dScaled(length_dir,fsa_names_sorted,time_underscore,x_min,x_max,y_min,y_max,folder_fsa,zip_dict,pre_fASB_test): #fvs is a dataframe with the fractional area v size
+
+
+def plot3dScaled(length_dir, fsa_names_sorted, time_underscore, x_min, x_max, y_min, y_max, folder_fsa, zip_dict,
+                 pre_fASB_test):  # fvs is a dataframe with the fractional area v size
     fig3 = plt.figure()
     ax3 = plt.axes(projection='3d')
     # Counter for subplot number
@@ -775,20 +781,20 @@ def plot3dScaled(length_dir,fsa_names_sorted,time_underscore,x_min,x_max,y_min,y
 
             y_std_maxdata1 = max(s_trace['DATA1'])
             x_std_maxdata1 = s_trace['DATA1'].index(y_std_maxdata1)
-            size_with_xmax = zip_dict[str(x_std_maxdata1)] #Gets the size of the xmax value
+            size_with_xmax = zip_dict[str(x_std_maxdata1)]  # Gets the size of the xmax value
             size_with_xmax_total = size_with_xmax + '/' + 'Total'
-            frac_row = pre_fASB_test.iloc[k,:]
+            frac_row = pre_fASB_test.iloc[k, :]
             frac = frac_row.loc[size_with_xmax_total]
             # print(size_with_xmax_total)
             # print(frac)
             # print(y_std_maxdata1)
-            factor1 = frac/y_std_maxdata1
-            #print(factor1)
+            factor1 = frac / y_std_maxdata1
+            # print(factor1)
 
-            #Gets a range for the max peak
+            # Gets a range for the max peak
 
-            #Gets max y value for data1:
-            y_std_peakdata1 = max(s_trace['DATA1'])/sum(s_trace['DATA1'])
+            # Gets max y value for data1:
+            y_std_peakdata1 = max(s_trace['DATA1']) / sum(s_trace['DATA1'])
             z_values = x_values[x_min:x_max + 1]
             x_values_time = [float(time)] * len(z_values)
             y_values = np.arange(x_min, x_max + 1)
@@ -798,8 +804,8 @@ def plot3dScaled(length_dir,fsa_names_sorted,time_underscore,x_min,x_max,y_min,y
             # x_values = np.arange(1,len(y_values)+1)
             ##
             ##
-           # print(type(z_values))
-            scaled_z_values = z_values * (frac/y_std_maxdata1)
+            # print(type(z_values))
+            scaled_z_values = z_values * (frac / y_std_maxdata1)
             # print(max(z_values))
             # print(max(scaled_z_values))
             # print(scaled_z_values)
@@ -830,23 +836,19 @@ def plot3dScaled(length_dir,fsa_names_sorted,time_underscore,x_min,x_max,y_min,y
         # Gets the x value of the max value
         x_peak = trace['DATA3'].index(y_peak)
 
-        #Gets the y-peak for Data1
-        y_peak_data1 = max(trace['DATA1']) #fractional area/max intenisty
+        # Gets the y-peak for Data1
+        y_peak_data1 = max(trace['DATA1'])  # fractional area/max intenisty
         x_peak_data1 = trace['DATA1'].index(y_peak_data1)
 
         size_with_xmax_2 = zip_dict[str(x_peak_data1)]  # Gets the size of the xmax value
         size_with_xmax_total_2 = size_with_xmax_2 + '/' + 'Total'
         frac_row_2 = pre_fASB_test.iloc[k, :]
         frac2 = frac_row_2.loc[size_with_xmax_total_2]
-        #print(frac2)
-        factor2 = frac2/y_peak_data1
+        # print(frac2)
+        factor2 = frac2 / y_peak_data1
         # print(size_with_xmax_total_2)
         # print(y_peak_data1)
         # print(factor2)
-
-
-
-
 
         # Takes difference of reference x value and time point x value
         diff = x_peak - x_std_max
@@ -868,7 +870,7 @@ def plot3dScaled(length_dir,fsa_names_sorted,time_underscore,x_min,x_max,y_min,y
         # print(y_values_non_std)
         # x_min_diff_first_x_np = np.arange(x_min_diff_first_x)
         # np.delete(y_values_non_std,x_min_diff_first_x_np)
-        z_values_non_std = x_values_non_std[x_min:x_min + len(y_values_non_std)]
+        z_values_non_std = x_values_non_std[x_min:x_min + len(y_values_non_std)] # Z-values are the y-values on 2d graph
         x_values_time_non_std = [float(time_peak)] * len(y_values_non_std)
 
         diff_range_list = np.arange(diff)
@@ -890,7 +892,8 @@ def plot3dScaled(length_dir,fsa_names_sorted,time_underscore,x_min,x_max,y_min,y
         # Positive differences, we will
         if diff > 0:
             y_values_append_values = np.arange(x_max - diff, x_max)
-            z_values_append_values = np.array(zero_list)
+            # z_values_append_values = np.array(zero_list)
+            z_values_append_values = np.array(x_values_non_std[x_max:x_max + diff])
             x_values_time_append_values = np.array([float(time_peak)] * diff)
 
             y_values_non_std = np.append(y_values_non_std, y_values_append_values)
@@ -925,7 +928,7 @@ def plot3dScaled(length_dir,fsa_names_sorted,time_underscore,x_min,x_max,y_min,y
 
         # print(y_values_non_std)
 
-        ax3.plot(x_values_time_non_std, y_values_non_std, z_values_non_std * (frac2/y_peak_data1) , alpha=0.7)
+        ax3.plot(x_values_time_non_std, y_values_non_std, z_values_non_std * (frac2 / y_peak_data1), alpha=0.7)
     ax3.set_ylim(x_min, x_max)
     ax3.set_zlim(y_min, y_max)
     ax3.set_xlabel('Time')
@@ -1048,7 +1051,8 @@ def plot3dlog(length_dir, fsa_names_sorted, time_underscore, x_min, x_max, y_min
         # Positive differences, we will
         if diff > 0:
             y_values_append_values = np.arange(x_max - diff, x_max)
-            z_values_append_values = np.array(zero_list)
+            # z_values_append_values = np.array(zero_list)
+            z_values_append_values = np.array(x_values_non_std[x_max:x_max + diff])
             x_values_time_append_values = np.array([float(time_peak)] * diff)
 
             y_values_non_std = np.append(y_values_non_std, y_values_append_values)
@@ -1110,7 +1114,9 @@ def plot3dlog(length_dir, fsa_names_sorted, time_underscore, x_min, x_max, y_min
     plt.show()
     plt.close()
 
-def plot3dlogscaled(length_dir,fsa_names_sorted,time_underscore,x_min,x_max,y_min,y_max,folder_fsa,zip_dict,pre_fASB_test):
+
+def plot3dlogscaled(length_dir, fsa_names_sorted, time_underscore, x_min, x_max, y_min, y_max, folder_fsa, zip_dict,
+                    pre_fASB_test):
     fig3 = plt.figure()
     ax3 = plt.axes(projection='3d')
     # Counter for subplot number
@@ -1145,7 +1151,7 @@ def plot3dlogscaled(length_dir,fsa_names_sorted,time_underscore,x_min,x_max,y_mi
             # print(frac)
             # print(y_std_maxdata1)
             factor1 = frac / y_std_maxdata1
-            #print(factor1)
+            # print(factor1)
 
             # Gets a range for the max peak
 
@@ -1200,7 +1206,7 @@ def plot3dlogscaled(length_dir,fsa_names_sorted,time_underscore,x_min,x_max,y_mi
         size_with_xmax_total_2 = size_with_xmax_2 + '/' + 'Total'
         frac_row_2 = pre_fASB_test.iloc[k, :]
         frac2 = frac_row_2.loc[size_with_xmax_total_2]
-       # print(frac2)
+        # print(frac2)
         factor2 = frac2 / y_peak_data1
         # print(size_with_xmax_total_2)
         # print(y_peak_data1)
@@ -1213,7 +1219,8 @@ def plot3dlogscaled(length_dir,fsa_names_sorted,time_underscore,x_min,x_max,y_mi
         # print(diff)
 
         # X_values_non_std are really the y values on a 2d graph
-        y_values_non_std = np.arange(x_min, x_max + 1) - diff
+        y_values_non_std = np.arange(x_min, x_max + 1) - diff  # removes values data point values that are +/- the
+        # difference. It's subtraction by difference because if positive, then remove data points in front
 
         x_min_diff_first_x = np.where(y_values_non_std == x_min)
         # print(x_min_diff_first_x)
@@ -1248,7 +1255,8 @@ def plot3dlogscaled(length_dir,fsa_names_sorted,time_underscore,x_min,x_max,y_mi
         # Positive differences, we will
         if diff > 0:
             y_values_append_values = np.arange(x_max - diff, x_max)
-            z_values_append_values = np.array(zero_list)
+            # z_values_append_values = np.array(zero_list)
+            z_values_append_values = np.array(x_values_non_std[x_max:x_max + diff])
             x_values_time_append_values = np.array([float(time_peak)] * diff)
 
             y_values_non_std = np.append(y_values_non_std, y_values_append_values)
