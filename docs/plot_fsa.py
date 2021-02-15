@@ -366,7 +366,7 @@ def plot3d(length_dir, fsa_names_sorted, time_underscore, x_min, x_max, y_min, y
     # array -= diff
 
     plt.show()
-    plt.close()
+    #plt.close()
 
 
 def divisors(n):  # Gives output of a list of lists [[1,4],[2,2]]
@@ -581,7 +581,7 @@ def plot(dir_name, time_underscore, x_min, x_max, y_min, y_max, rows, cols):
     fig.text(0.04, 0.5, 'RFU', va='center', rotation='vertical')
 
     plt.show()
-    plt.close()
+    #plt.close()
 
 
 def plot2dScaled(dir_name, time_underscore, x_min, x_max, y_min, y_max, rows, cols, zip_dict, pre_fASB_test):
@@ -750,7 +750,7 @@ def plot2dScaled(dir_name, time_underscore, x_min, x_max, y_min, y_max, rows, co
     fig.text(0.04, 0.5, 'Frac. Area', va='center', rotation='vertical')
 
     plt.show()
-    plt.close()
+    #plt.close()
 
 
 def plot3dScaled(length_dir, fsa_names_sorted, time_underscore, x_min, x_max, y_min, y_max, folder_fsa, zip_dict,
@@ -950,7 +950,7 @@ def plot3dScaled(length_dir, fsa_names_sorted, time_underscore, x_min, x_max, y_
     # array -= diff
 
     plt.show()
-    plt.close()
+    #plt.close()
 
 
 def plot3dlog(length_dir, fsa_names_sorted, time_underscore, x_min, x_max, y_min, y_max, folder_fsa):
@@ -1112,7 +1112,7 @@ def plot3dlog(length_dir, fsa_names_sorted, time_underscore, x_min, x_max, y_min
     # array -= diff
 
     plt.show()
-    plt.close()
+    #plt.close()
 
 
 def plot3dlogscaled(length_dir, fsa_names_sorted, time_underscore, x_min, x_max, y_min, y_max, folder_fsa, zip_dict,
@@ -1313,4 +1313,4 @@ def plot3dlogscaled(length_dir, fsa_names_sorted, time_underscore, x_min, x_max,
     # array -= diff
 
     plt.show()
-    plt.close()
+    #plt.close()
