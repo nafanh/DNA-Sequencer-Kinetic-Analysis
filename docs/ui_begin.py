@@ -316,7 +316,7 @@ class Ui_MainWindow(object):
         self.tableWidget.setItem(1, 1, item)
         item = QtWidgets.QTableWidgetItem()
         self.tableWidget.setItem(1, 2, item)
-        self.tableWidget.horizontalHeader().setVisible(False)
+        self.tableWidget.horizontalHeader().setVisible(True)
         self.tableWidget.horizontalHeader().setCascadingSectionResizes(True)
         self.tableWidget.horizontalHeader().setDefaultSectionSize(100)
         self.tableWidget.horizontalHeader().setHighlightSections(True)

@@ -199,6 +199,10 @@ class Ui(QtWidgets.QMainWindow):
             self.df_global_peaks = all_peaks_filtered_global(self.df_all_peaks, self.min_height) #Creates table with all peaks above min height for use other methods
             self.df_int_std_filter =  int_std_filtered(self.df_all_peaks,self.min_height_int_std) #Creates table with all int std. peaks
             self.df_differences_table = sample_distance(self.df_global_peaks) #Creates table with distances column added
+            #Create difference list for table
+            self.df_diff_ranges = self.df_differences_table['Diff'].tolist()
+            self.df_diff_ranges.sort()
+            self.df_diff_ranges_tab = pd.DataFrame(self.df_diff_ranges, columns=['Diff'])
 
             #Ungrey the selections for seeing each table
             self.ui.pushButton_15.setEnabled(True)
@@ -252,15 +256,8 @@ class Ui(QtWidgets.QMainWindow):
     # Shows peak table with differences column
     def showDifferencesTable(self):
         try:
-
-            self.df_differences = sample_distance(self.df_global_peaks)
-            self.df_diff_ranges = self.df_differences['Diff'].tolist()
-            self.df_diff_ranges.sort()
-            self.df_diff_ranges_tab = pd.DataFrame(self.df_diff_ranges,columns=['Diff'])
-
-
             #for table
-            model = pandasModel(self.df_differences)
+            model = pandasModel(self.df_differences_table)
             self.view_diff = QTableView()
             self.view_diff.horizontalHeader().setSectionResizeMode(QtWidgets.QHeaderView.Stretch)
             self.view_diff.resizeColumnsToContents()
@@ -276,30 +273,23 @@ class Ui(QtWidgets.QMainWindow):
             error_dialog.exec_()
 
 
-
-
     # Shows a column of all difference ranges
     def showDifferences(self):
-        try:
-            self.df_differences2 = sample_distance(self.df_global_peaks)
-            self.df_diff_ranges2= self.df_differences2['Diff'].tolist()
-            self.df_diff_ranges2.sort()
-            self.df_diff_ranges_tab = pd.DataFrame(self.df_diff_ranges, columns=['Diff'])
-
-            # For ranges only
-            model2 = pandasModel(self.df_diff_ranges_tab)
-            self.view_diff2 = QTableView()
-            self.view_diff2.horizontalHeader().setSectionResizeMode(QtWidgets.QHeaderView.Stretch)
-            self.view_diff2.resizeColumnsToContents()
-            self.view_diff2.setModel(model2)
-            self.view_diff2.setWindowTitle('Differences')
-            self.view_diff2.resize(300, 600)
-            # self.close
-            self.view_diff2.show()
-        except:
-            error_dialog = QtWidgets.QErrorMessage()
-            error_dialog.showMessage('Please press show differences ranges first')
-            error_dialog.exec_()
+        #try:
+        # For ranges only, Removed repeated lines above
+        model2 = pandasModel(self.df_diff_ranges_tab)
+        self.view_diff2 = QTableView()
+        self.view_diff2.horizontalHeader().setSectionResizeMode(QtWidgets.QHeaderView.Stretch)
+        self.view_diff2.resizeColumnsToContents()
+        self.view_diff2.setModel(model2)
+        self.view_diff2.setWindowTitle('Differences')
+        self.view_diff2.resize(300, 600)
+        # self.close
+        self.view_diff2.show()
+        # except:
+        #     error_dialog = QtWidgets.QErrorMessage()
+        #     error_dialog.showMessage('Please press show differences ranges first')
+        #     error_dialog.exec_()
 
 #----------------------------------------------------------------------------------------------------------------
 # POLYMER BOUNDS STARTS HERE
@@ -769,3 +759,7 @@ if __name__ == '__main__':
     window = Ui()
     window.show()
     sys.exit(app.exec_())
+
+
+
+#NEED TO FIX SHOW TABLE DIFFERENCES FIRST. This prevents ranges list from showing w/o seeing full table first
