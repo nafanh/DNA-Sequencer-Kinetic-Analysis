@@ -819,7 +819,7 @@ class polymerBounds(QtWidgets.QMainWindow):
             error_dialog = QtWidgets.QErrorMessage()
             error_dialog.showMessage('Please press show differences ranges first')
             error_dialog.exec_()
-
+#---------------------------------------------------------------------------------------------------------------------
     def getPolymerName(self):
         global polymer_list
         try:
@@ -858,7 +858,8 @@ class polymerBounds(QtWidgets.QMainWindow):
             error_dialog.showMessage('Polymers or difference ranges entered incorrectly, please try again')
             error_dialog.exec_()
 
-
+    #Final lists: [[110,111],[111,113]]
+    #polymer list: [27mer,28mer,29mer]
     def calcTableandFAVSB(self):
         global pre_fASB_test
         global zip_dict
@@ -881,7 +882,6 @@ class polymerBounds(QtWidgets.QMainWindow):
             error_dialog.exec_()
 
     def showTableWithSize(self):
-        #global tws
 
         try:
             # tws = size(df_differences_global, polymer_list, final_list)
