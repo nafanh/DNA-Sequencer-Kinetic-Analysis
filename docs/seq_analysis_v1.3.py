@@ -648,6 +648,7 @@ class Ui(QtWidgets.QMainWindow):
     #shows alignment of 2d plots
     def showAlignment(self):
         try:
+            # Params for graph
             self.min_x = self.ui.lineEdit_41.text()
             self.max_x = self.ui.lineEdit_42.text()
             self.min_y = self.ui.lineEdit_43.text()
@@ -656,7 +657,6 @@ class Ui(QtWidgets.QMainWindow):
             self.desired_col = self.ui.lineEdit_36.text()
             dirName= self.dirName
             plot_time_underscore = self.plot_time_underscore
-            #plot(self.dirName,self.plot_time_underscore,int(self.min_x),int(self.max_x),int(self.min_y),int(self.max_y),int(self.desired_row),int(self.desired_col))
             plot(dirName,plot_time_underscore,int(self.min_x),int(self.max_x),int(self.min_y),int(self.max_y),int(self.desired_row),int(self.desired_col))
 
 
@@ -668,8 +668,15 @@ class Ui(QtWidgets.QMainWindow):
     #Shows 3d graphs
     def show3d(self):
         try:
-            plot3d(self.num_pts,self.fsaNamesList,self.plot_time_underscore,int(self.min_x),int(self.max_x),int(self.min_y),
-                 int(self.max_y),self.dirName)
+            # Params for graph
+            self.min_x = self.ui.lineEdit_41.text()
+            self.max_x = self.ui.lineEdit_42.text()
+            self.min_y = self.ui.lineEdit_43.text()
+            self.max_y = self.ui.lineEdit_44.text()
+            dirName = self.dirName
+            plot_time_underscore = self.plot_time_underscore
+            plot3d(self.num_pts,self.fsaNamesList,plot_time_underscore,int(self.min_x),int(self.max_x),int(self.min_y),
+                 int(self.max_y),dirName)
 
         except:
             error_dialog = QtWidgets.QErrorMessage()
@@ -679,8 +686,14 @@ class Ui(QtWidgets.QMainWindow):
     #Shows log(3d) plots
     def show3dlog(self):
         try:
-            plot3dlog(self.num_pts,self.fsaNamesList,self.plot_time_underscore,int(self.min_x),int(self.max_x),int(self.min_y),
-                 int(self.max_y),self.dirName)
+            self.min_x = self.ui.lineEdit_41.text()
+            self.max_x = self.ui.lineEdit_42.text()
+            self.min_y = self.ui.lineEdit_43.text()
+            self.max_y = self.ui.lineEdit_44.text()
+            dirName = self.dirName
+            plot_time_underscore = self.plot_time_underscore
+            plot3dlog(self.num_pts,self.fsaNamesList,plot_time_underscore,int(self.min_x),int(self.max_x),int(self.min_y),
+                 int(self.max_y),dirName)
 
         except:
             error_dialog = QtWidgets.QErrorMessage()
@@ -690,10 +703,17 @@ class Ui(QtWidgets.QMainWindow):
     #Shows 2d scaled
     def show2dscaled(self):
         try:
-
+            self.min_x = self.ui.lineEdit_41.text()
+            self.max_x = self.ui.lineEdit_42.text()
+            self.min_y = self.ui.lineEdit_43.text()
+            self.max_y = self.ui.lineEdit_44.text()
+            self.desired_row = self.ui.lineEdit_35.text()
+            self.desired_col = self.ui.lineEdit_36.text()
+            dirName = self.dirName
+            plot_time_underscore = self.plot_time_underscore
             try:
                 if flag:
-                    plot2dScaled(self.dirName,self.plot_time_underscore,int(self.min_x),int(self.max_x),int(self.min_y)
+                    plot2dScaled(dirName,plot_time_underscore,int(self.min_x),int(self.max_x),int(self.min_y)
                                  ,1,int(self.desired_row),int(self.desired_col), zip_dict, pre_fASB_test)
 
             except NameError:
@@ -708,11 +728,17 @@ class Ui(QtWidgets.QMainWindow):
     #Shows 3d scaled plots
     def show3dscaled(self):
         try:
+            self.min_x = self.ui.lineEdit_41.text()
+            self.max_x = self.ui.lineEdit_42.text()
+            self.min_y = self.ui.lineEdit_43.text()
+            self.max_y = self.ui.lineEdit_44.text()
+            dirName = self.dirName
+            plot_time_underscore = self.plot_time_underscore
             try:
                 if flag:
-                    plot3dScaled(self.num_pts, self.fsaNamesList, self.plot_time_underscore, int(self.min_x),
+                    plot3dScaled(self.num_pts, self.fsaNamesList, plot_time_underscore, int(self.min_x),
                                  int(self.max_x), int(self.min_y),
-                                 1, self.dirName, zip_dict, pre_fASB_test)
+                                 1, dirName, zip_dict, pre_fASB_test)
 
             except NameError:
                 plot3dScaled(self.num_pts, self.fsaNamesList, self.plot_time_underscore, int(self.min_x), int(self.max_x),
@@ -727,11 +753,17 @@ class Ui(QtWidgets.QMainWindow):
     #Show log(3d) scaled
     def show3dlogscaled(self):
         try:
+            self.min_x = self.ui.lineEdit_41.text()
+            self.max_x = self.ui.lineEdit_42.text()
+            self.min_y = self.ui.lineEdit_43.text()
+            self.max_y = self.ui.lineEdit_44.text()
+            dirName = self.dirName
+            plot_time_underscore = self.plot_time_underscore
             try:
                 if flag:
-                    plot3dlogscaled(self.num_pts, self.fsaNamesList, self.plot_time_underscore, int(self.min_x), int(self.max_x),
+                    plot3dlogscaled(self.num_pts, self.fsaNamesList, plot_time_underscore, int(self.min_x), int(self.max_x),
                              int(self.min_y),
-                             1, self.dirName, zip_dict, pre_fASB_test)
+                             1, dirName, zip_dict, pre_fASB_test)
 
             except NameError:
                 plot3dlogscaled(self.num_pts, self.fsaNamesList, self.plot_time_underscore, int(self.min_x), int(self.max_x),
