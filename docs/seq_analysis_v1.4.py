@@ -130,19 +130,19 @@ class Ui(QtWidgets.QMainWindow):
     # Have to error check in case not an integer
     def getTimeUnderscore(self):
 
-        try:
-            self.time_underscore = int(self.ui.time_line_edit_fill.text())
-            self.df_all_peaks = filtered_data(self.txtfileName,
-                                              self.time_underscore)
-            self.df_all_int_std_peaks = int_std_all(self.df_all_peaks, self.ui.lineEdit.text().upper()
-                                                    )  # Calculates all internal std. peaks
-            self.ui.pushButton_10.setEnabled(True)  # enables show all peaks button before submitting data
-            self.ui.pushButton_12.setEnabled(True)  # enables show all internal std. peak button
-            self.ui.pushButton_13.setEnabled(True)  # enables show all non int std. peaks
-        except:
-            error_dialog = QtWidgets.QErrorMessage()
-            error_dialog.showMessage('No time underscore, or dye does not match dye detected, please try again')
-            error_dialog.exec_()
+        #try:
+        self.time_underscore = int(self.ui.time_line_edit_fill.text())
+        self.df_all_peaks = filtered_data(self.txtfileName,
+                                          self.time_underscore)
+        self.df_all_int_std_peaks = int_std_all(self.df_all_peaks, self.ui.lineEdit.text().upper()
+                                                )  # Calculates all internal std. peaks
+        self.ui.pushButton_10.setEnabled(True)  # enables show all peaks button before submitting data
+        self.ui.pushButton_12.setEnabled(True)  # enables show all internal std. peak button
+        self.ui.pushButton_13.setEnabled(True)  # enables show all non int std. peaks
+        # except:
+        #     error_dialog = QtWidgets.QErrorMessage()
+        #     error_dialog.showMessage('No time underscore, or dye does not match dye detected, please try again')
+        #     error_dialog.exec_()
 
     # Shows all peaks
     def showAllPeaks(self):
@@ -714,28 +714,28 @@ class Ui(QtWidgets.QMainWindow):
 
     # Shows 2d scaled
     def show2dscaled(self):
+        # try:
+        self.min_x = self.ui.lineEdit_41.text()
+        self.max_x = self.ui.lineEdit_42.text()
+        self.min_y = self.ui.lineEdit_43.text()
+        self.max_y = self.ui.lineEdit_44.text()
+        self.desired_row = self.ui.lineEdit_35.text()
+        self.desired_col = self.ui.lineEdit_36.text()
+        dirName = self.dirName
+        plot_time_underscore = self.plot_time_underscore
         try:
-            self.min_x = self.ui.lineEdit_41.text()
-            self.max_x = self.ui.lineEdit_42.text()
-            self.min_y = self.ui.lineEdit_43.text()
-            self.max_y = self.ui.lineEdit_44.text()
-            self.desired_row = self.ui.lineEdit_35.text()
-            self.desired_col = self.ui.lineEdit_36.text()
-            dirName = self.dirName
-            plot_time_underscore = self.plot_time_underscore
-            try:
-                if flag:
-                    plot2dScaled(dirName, plot_time_underscore, int(self.min_x), int(self.max_x), int(self.min_y)
-                                 , 1, int(self.desired_row), int(self.desired_col), zip_dict, pre_fASB_test)
-
-            except NameError:
-                plot2dScaled(self.dirName, self.plot_time_underscore, int(self.min_x), int(self.max_x), int(self.min_y)
+            if flag:
+                plot2dScaled(dirName, plot_time_underscore, int(self.min_x), int(self.max_x), int(self.min_y)
                              , 1, int(self.desired_row), int(self.desired_col), zip_dict, pre_fASB_test)
 
-        except:
-            error_dialog = QtWidgets.QErrorMessage()
-            error_dialog.showMessage('Cannot show alignment, please perform frac area v size first.')
-            error_dialog.exec_()
+        except NameError:
+            plot2dScaled(self.dirName, self.plot_time_underscore, int(self.min_x), int(self.max_x), int(self.min_y)
+                         , 1, int(self.desired_row), int(self.desired_col), zip_dict, pre_fASB_test)
+        #
+        # except:
+        #     error_dialog = QtWidgets.QErrorMessage()
+        #     error_dialog.showMessage('Cannot show alignment, please perform frac area v size first.')
+        #     error_dialog.exec_()
 
     # Shows 3d scaled plots
     def show3dscaled(self):

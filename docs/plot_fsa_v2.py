@@ -79,11 +79,12 @@ def filtered_data(name,time_underscore):
         count += 1
     # pprint.pprint(col_data)
     df = pd.DataFrame(col_data, columns=headers)
-    # print(col_data)
-
+    df[["Time","Data Point","Height","Area","Peak Number"]] = df[["Time","Data Point","Height","Area","Peak Number"]].apply(pd.to_numeric)
+    df.sort_values(by=["Time","Data Point","Height","Area","Peak Number"], inplace=True)
     # filters height above user input. Note that if filter height
     # is above internal standard height, then error will raise
     # have to add try/except block here for future use
+
     return df
 
 #Returns all internal std peaks, corrected now to input any type of dye
@@ -726,7 +727,7 @@ def plot2dScaled(dir_name, time_underscore, x_min, x_max, y_min, y_max, rows, co
             # Outputs the graph for the standard peaks
             y_std_maxdata1 = max(s_trace['DATA1'])
             x_std_maxdata1 = s_trace['DATA1'].index(y_std_maxdata1)
-            size_with_xmax = zip_dict[str(x_std_maxdata1)]  # Gets the size of the xmax value
+            size_with_xmax = zip_dict[float(x_std_maxdata1)]  # Gets the size of the xmax value
             size_with_xmax_total = size_with_xmax + '/' + 'Total'
             frac_row = pre_fASB_test.iloc[k, :]
             frac = frac_row.loc[size_with_xmax_total]
@@ -777,7 +778,7 @@ def plot2dScaled(dir_name, time_underscore, x_min, x_max, y_min, y_max, rows, co
         y_peak_data1 = max(trace['DATA1'])  # fractional area/max intenisty
         x_peak_data1 = trace['DATA1'].index(y_peak_data1)
 
-        size_with_xmax_2 = zip_dict[str(x_peak_data1)]  # Gets the size of the xmax value
+        size_with_xmax_2 = zip_dict[float(x_peak_data1)]  # Gets the size of the xmax value
         size_with_xmax_total_2 = size_with_xmax_2 + '/' + 'Total'
         frac_row_2 = pre_fASB_test.iloc[k, :]
         frac2 = frac_row_2.loc[size_with_xmax_total_2]
@@ -868,7 +869,7 @@ def plot3dScaled(length_dir, fsa_names_sorted, time_underscore, x_min, x_max, y_
 
             y_std_maxdata1 = max(s_trace['DATA1'])
             x_std_maxdata1 = s_trace['DATA1'].index(y_std_maxdata1)
-            size_with_xmax = zip_dict[str(x_std_maxdata1)]  # Gets the size of the xmax value
+            size_with_xmax = zip_dict[float(x_std_maxdata1)]  # Gets the size of the xmax value
             size_with_xmax_total = size_with_xmax + '/' + 'Total'
             frac_row = pre_fASB_test.iloc[k, :]
             frac = frac_row.loc[size_with_xmax_total]
@@ -927,7 +928,7 @@ def plot3dScaled(length_dir, fsa_names_sorted, time_underscore, x_min, x_max, y_
         y_peak_data1 = max(trace['DATA1'])  # fractional area/max intenisty
         x_peak_data1 = trace['DATA1'].index(y_peak_data1)
 
-        size_with_xmax_2 = zip_dict[str(x_peak_data1)]  # Gets the size of the xmax value
+        size_with_xmax_2 = zip_dict[float(x_peak_data1)]  # Gets the size of the xmax value
         size_with_xmax_total_2 = size_with_xmax_2 + '/' + 'Total'
         frac_row_2 = pre_fASB_test.iloc[k, :]
         frac2 = frac_row_2.loc[size_with_xmax_total_2]
@@ -1230,7 +1231,7 @@ def plot3dlogscaled(length_dir, fsa_names_sorted, time_underscore, x_min, x_max,
 
             y_std_maxdata1 = max(s_trace['DATA1'])
             x_std_maxdata1 = s_trace['DATA1'].index(y_std_maxdata1)
-            size_with_xmax = zip_dict[str(x_std_maxdata1)]  # Gets the size of the xmax value
+            size_with_xmax = zip_dict[float(x_std_maxdata1)]  # Gets the size of the xmax value
             size_with_xmax_total = size_with_xmax + '/' + 'Total'
             frac_row = pre_fASB_test.iloc[k, :]
             frac = frac_row.loc[size_with_xmax_total]
@@ -1289,7 +1290,7 @@ def plot3dlogscaled(length_dir, fsa_names_sorted, time_underscore, x_min, x_max,
         y_peak_data1 = max(trace['DATA1'])  # fractional area/max intenisty
         x_peak_data1 = trace['DATA1'].index(y_peak_data1)
 
-        size_with_xmax_2 = zip_dict[str(x_peak_data1)]  # Gets the size of the xmax value
+        size_with_xmax_2 = zip_dict[float(x_peak_data1)]  # Gets the size of the xmax value
         size_with_xmax_total_2 = size_with_xmax_2 + '/' + 'Total'
         frac_row_2 = pre_fASB_test.iloc[k, :]
         frac2 = frac_row_2.loc[size_with_xmax_total_2]
