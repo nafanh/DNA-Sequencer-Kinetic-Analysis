@@ -130,19 +130,19 @@ class Ui(QtWidgets.QMainWindow):
     # Have to error check in case not an integer
     def getTimeUnderscore(self):
 
-        #try:
-        self.time_underscore = int(self.ui.time_line_edit_fill.text())
-        self.df_all_peaks = filtered_data(self.txtfileName,
-                                          self.time_underscore)
-        self.df_all_int_std_peaks = int_std_all(self.df_all_peaks, self.ui.lineEdit.text().upper()
-                                                )  # Calculates all internal std. peaks
-        self.ui.pushButton_10.setEnabled(True)  # enables show all peaks button before submitting data
-        self.ui.pushButton_12.setEnabled(True)  # enables show all internal std. peak button
-        self.ui.pushButton_13.setEnabled(True)  # enables show all non int std. peaks
-        # except:
-        #     error_dialog = QtWidgets.QErrorMessage()
-        #     error_dialog.showMessage('No time underscore, or dye does not match dye detected, please try again')
-        #     error_dialog.exec_()
+        try:
+            self.time_underscore = int(self.ui.time_line_edit_fill.text())
+            self.df_all_peaks = filtered_data(self.txtfileName,
+                                              self.time_underscore)
+            self.df_all_int_std_peaks = int_std_all(self.df_all_peaks, self.ui.lineEdit.text().upper()
+                                                    )  # Calculates all internal std. peaks
+            self.ui.pushButton_10.setEnabled(True)  # enables show all peaks button before submitting data
+            self.ui.pushButton_12.setEnabled(True)  # enables show all internal std. peak button
+            self.ui.pushButton_13.setEnabled(True)  # enables show all non int std. peaks
+        except:
+            error_dialog = QtWidgets.QErrorMessage()
+            error_dialog.showMessage('No time underscore, or dye does not match dye detected, please try again')
+            error_dialog.exec_()
 
     # Shows all peaks
     def showAllPeaks(self):

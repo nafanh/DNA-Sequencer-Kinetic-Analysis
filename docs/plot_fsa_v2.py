@@ -554,6 +554,8 @@ def plot(dir_name, time_underscore, x_min, x_max, y_min, y_max, rows, cols):
 
     # Creates figure, axis objects for subplot
     fig, ax = plt.subplots(rows, cols, sharex='all', sharey='all')
+
+
     axes_list = [item for sublist in ax for item in sublist]
 
     # Initialize variables for row and column
@@ -581,14 +583,14 @@ def plot(dir_name, time_underscore, x_min, x_max, y_min, y_max, rows, cols):
             # Outputs the graph for the standard peaks
             if rows == 1 or cols == 1:
                 ax[count_1x].plot(s_trace['DATA1'], color='black')
-                ax[count_1x].set_title('Time: ' + time, loc='right', fontsize=8)
+                ax[count_1x].set_title('Time: ' + time, fontsize=8)
                 ax[count_1x].set_xlim(x_min, x_max)
                 ax[count_1x].set_ylim(y_min, y_max)
                 count_1x += 1
 
             else:
                 ax[0, 0].plot(s_trace['DATA1'], color='black')
-                ax[0, 0].set_title('Time: ' + time, loc='right', fontsize=8)
+                ax[0, 0].set_title('Time: ' + time, fontsize=8)
                 ax[0, 0].set_xlim(x_min, x_max)
                 ax[0, 0].set_ylim(y_min, y_max)
             continue
@@ -638,20 +640,23 @@ def plot(dir_name, time_underscore, x_min, x_max, y_min, y_max, rows, cols):
         ##                continue
         if rows == 1:
             ax[count_1x].plot(array, trace['DATA1'], color='black')
-            ax[count_1x].set_title('Time: ' + time_peak, loc='right', fontsize=8)
+            #ax[count_1x].set_title('Time: ' + time_peak, loc='right', fontsize=8)
+            ax[count_1x].set_title('Time: ' + time_peak, fontsize=8)
             ax[count_1x].set_xlim(x_min, x_max)
             ax[count_1x].set_ylim(y_min, y_max)
             count_1x += 1
         elif cols == 1:
             ax[count_1x].plot(array, trace['DATA1'], color='black')
-            ax[count_1x].set_title('Time: ' + time_peak, loc='right', fontsize=8)
+            # ax[count_1x].set_title('Time: ' + time_peak, loc='right', fontsize=8)
+            ax[count_1x].set_title('Time: ' + time_peak, fontsize=8)
             ax[count_1x].set_xlim(x_min, x_max)
             ax[count_1x].set_ylim(y_min, y_max)
             count_1x += 1
         # Displays the peaks
         else:
             ax[i, j].plot(array, trace['DATA1'], color='black')
-            ax[i, j].set_title('Time: ' + time_peak, loc='right', fontsize=8)
+            # ax[i, j].set_title('Time: ' + time_peak, loc='right', fontsize=8)
+            ax[i, j].set_title('Time: ' + time_peak, fontsize=8)
             ax[i, j].set_xlim(x_min, x_max)
             ax[i, j].set_ylim(y_min, y_max)
             j += 1
@@ -665,7 +670,7 @@ def plot(dir_name, time_underscore, x_min, x_max, y_min, y_max, rows, cols):
     #    plt.plot(array,trace['DATA1'],color='black')
     # plt.xlim(2000,3000)
     #    plt.ylim(0,5000)
-    fig.suptitle('Chromatogram Peaks')
+    fig.suptitle('Electropherogram Peaks')
     fig.text(0.04, 0.5, 'RFU', va='center', rotation='vertical')
 
     plt.show()
@@ -700,6 +705,8 @@ def plot2dScaled(dir_name, time_underscore, x_min, x_max, y_min, y_max, rows, co
 
     # Creates figure, axis objects for subplot
     fig, ax = plt.subplots(rows, cols, sharex='all', sharey='all')
+
+
     axes_list = [item for sublist in ax for item in sublist]
 
     # Initialize variables for row and column
@@ -739,13 +746,13 @@ def plot2dScaled(dir_name, time_underscore, x_min, x_max, y_min, y_max, rows, co
             # print(type(s_trace['DATA1']))
             if rows == 1 or cols == 1:
                 ax[count_1x].plot(np.array(s_trace['DATA1']) * factor1, color='black')
-                ax[count_1x].set_title('Time: ' + time, loc='right', fontsize=8)
+                ax[count_1x].set_title('Time: ' + time, fontsize=8)
                 ax[count_1x].set_xlim(x_min, x_max)
                 ax[count_1x].set_ylim(y_min, y_max)
                 count_1x += 1
             else:
                 ax[0, 0].plot(np.array(s_trace['DATA1']) * factor1, color='black')
-                ax[0, 0].set_title('Time: ' + time, loc='right', fontsize=8)
+                ax[0, 0].set_title('Time: ' + time, fontsize=8)
                 ax[0, 0].set_xlim(x_min, x_max)
                 ax[0, 0].set_ylim(y_min, y_max)
             continue
@@ -807,20 +814,20 @@ def plot2dScaled(dir_name, time_underscore, x_min, x_max, y_min, y_max, rows, co
         ##                continue
         if rows == 1:
             ax[count_1x].plot(array, np.array(trace['DATA1']) * factor2, color='black')
-            ax[count_1x].set_title('Time: ' + time_peak, loc='right', fontsize=8)
+            ax[count_1x].set_title('Time: ' + time_peak, fontsize=8)
             ax[count_1x].set_xlim(x_min, x_max)
             ax[count_1x].set_ylim(y_min, y_max)
             count_1x += 1
         elif cols == 1:
             ax[count_1x].plot(array, np.array(trace['DATA1']) * factor2, color='black')
-            ax[count_1x].set_title('Time: ' + time_peak, loc='right', fontsize=8)
+            ax[count_1x].set_title('Time: ' + time_peak, fontsize=8)
             ax[count_1x].set_xlim(x_min, x_max)
             ax[count_1x].set_ylim(y_min, y_max)
             count_1x += 1
         # Displays the peaks
         else:
             ax[i, j].plot(array, np.array(trace['DATA1']) * factor2, color='black')
-            ax[i, j].set_title('Time: ' + time_peak, loc='right', fontsize=8)
+            ax[i, j].set_title('Time: ' + time_peak, fontsize=8)
             ax[i, j].set_xlim(x_min, x_max)
             ax[i, j].set_ylim(y_min, y_max)
             j += 1
@@ -834,7 +841,7 @@ def plot2dScaled(dir_name, time_underscore, x_min, x_max, y_min, y_max, rows, co
     if subplot_diff > 0:
         for i in range(length_dir, (rows * cols)):
             axes_list[i].remove()
-    fig.suptitle('Chromatogram Peaks')
+    fig.suptitle('Electropherogram Peaks')
     fig.text(0.04, 0.5, 'Frac. Area', va='center', rotation='vertical')
 
     plt.show()
@@ -1437,7 +1444,6 @@ def sample_distance(filtered_data,int_dye,prod_dye):
     #zips the sample time points and data points into a nested list
     # Ex: [[1,2],[3,4]]
     sample_2d = [list(a) for a in zip(sample_timelist, sample_list)]
-
     #pprint.pprint(sample_2d)
 
     # if sample_2d[i][0] in int_std_dict:
@@ -1451,7 +1457,14 @@ def sample_distance(filtered_data,int_dye,prod_dye):
         #Method is inefficient, could probably use nested list
         # for the internal standards as well
         #diff = int(int_std_dict[sample_2d[i][0]]) - int(sample_2d[i][1])
-        diff = round(float(int(int_std_dict[sample_2d[i][0]])/int(sample_2d[i][1])) * 100,2)
+
+        #This is 100*(int_std/product peak)
+        #sample_2d[i][0] is the time point, sample_2d[i][1] is the data point
+        #diff = round(float(int(int_std_dict[sample_2d[i][0]])/int(sample_2d[i][1])) * 100,2)
+
+        #This is 100*(product_peak/int_std)
+        diff = round(float(int(sample_2d[i][1])/int(int_std_dict[sample_2d[i][0]])) * 100,2)
+
         diff_list.append(diff)
 
     #This is to prevent pandas SettingwithCopyWarning
