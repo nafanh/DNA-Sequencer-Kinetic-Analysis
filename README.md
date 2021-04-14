@@ -1,5 +1,11 @@
 
 # DNA-Sequencer-Kinetic-Analysis
+**If you're looking to edit the program, all the files for version 2.0 should be in *DNA-Sequencer-Kinetic-Analysis/docs/v2.0 files/***
+- *plot_fsa_v2.py* has all the logic and quantification code
+- *seq_analysis_v2.py* handles all the pyqt5 interaction with *ui_begin_v2.py*
+- *ui_begin_v2.py* is the GUI created in pyqt5.
+- The .ui file that can be opened in QtDesigner is found in: *DNA-Sequencer-Kinetic-Analysis/pyqt5/v2.0 files/begin_v2.ui*
+
 Used to quickly quantify short nucleotide fragments from capillary electrophoresis. Download can be found in the releases. Manual can be found in the installer.
 After you download the program from the installer, the program should be in an .exe called seq_analysis_v2.exe.
 If you created a desktop icon, it should be DNA Sequencer Analysis Software v2.0.
