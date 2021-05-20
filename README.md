@@ -3,7 +3,7 @@
 
 High Throughput Quantification of Short Nucleic Acid Samples by Capillary Electrophoresis with Automated Data Processing
 
-Dangerfield TL, Huang NZ, Johnson KA. High Throughput Quantification of Short Nucleic Acid Samples by Capillary Electrophoresis with Automated Data Processing [published online ahead of print, 2021 May 9]. Anal Biochem. 2021;114239. doi:10.1016/j.ab.2021.114239
+Dangerfield TL, Huang NZ, Johnson KA. High Throughput Quantification of Short Nucleic Acid Samples by Capillary Electrophoresis with Automated Data Processing [published online ahead of print, 2021 May 9]. Anal Biochem. 2021;114239. [doi:10.1016/j.ab.2021.114239]
 
 
 
