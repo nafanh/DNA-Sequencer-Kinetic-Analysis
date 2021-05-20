@@ -1,5 +1,16 @@
 
 # DNA-Sequencer-Kinetic-Analysis
+
+High Throughput Quantification of Short Nucleic Acid Samples by Capillary Electrophoresis with Automated Data Processing
+
+Dangerfield TL, Huang NZ, Johnson KA. High Throughput Quantification of Short Nucleic Acid Samples by Capillary Electrophoresis with Automated Data Processing [published online ahead of print, 2021 May 9]. Anal Biochem. 2021;114239. doi:10.1016/j.ab.2021.114239
+
+
+
+
+
+
+
 **If you're looking to edit the program, all the files for version 2.0 should be in *DNA-Sequencer-Kinetic-Analysis/docs/v2.0 files/***
 - *plot_fsa_v2.py* has all the logic and quantification code
 - *seq_analysis_v2.py* handles all the pyqt5 interaction with *ui_begin_v2.py*
