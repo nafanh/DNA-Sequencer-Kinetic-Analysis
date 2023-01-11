@@ -6,7 +6,7 @@ matplotlib==3.3.4
 numpy==1.22.0
 openpyxl==3.0.7
 pandas==1.2.4
-Pillow==9.0.1
+Pillow==9.3.0
 pyparsing==2.4.7
 PyQt5==5.15.4
 PyQt5-Qt5==5.15.2
